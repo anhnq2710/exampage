@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hiệu Ứng Bắn Pháo Hoa</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            overflow: hidden;
+            position: relative; /* Để sử dụng vị trí tuyệt đối cho hình ảnh */
+        }
+
+        .firework {
+            position: absolute;
+            opacity: 0;
+            animation: explode 1s forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .image {
+            position: absolute;
+            width: 15vw; /* Chiếm 25% chiều rộng màn hình */
+            height: auto; /* Tự động theo tỷ lệ */
+            transition: transform 2s linear; /* Hiệu ứng chuyển động */
+        }
+
+        .caption {
+            color: white; /* Màu chữ */
+            font-size: 2em; /* Kích thước chữ */
+            text-align: center; /* Căn giữa chữ */
+            position: absolute;
+            bottom: 10px; /* Khoảng cách từ đáy */
+            left: 50%; /* Căn giữa theo chiều ngang */
+            transform: translateX(-50%); /* Căn giữa chính xác */
+        }
+    </style>
+</head>
+<body>
+    <div class="caption"> <p>Ngày 20/10 con chúc bác,mẹ và em luôn vui vẻ, mạnh khỏe hạnh phúc và ngày càng xinh đẹp</p>
+    <p>💐 🌸 🌷 💐 🌸 🌷 💐 🌸 🌷 💐 🌸 🌷</p>
+    </div>
+
+    <script>
+        const images = [
+            '1.jpg',
+            '2.jpg',
+            '3.jpg',
+            '4.jpg',
+            '5.jpg'
+            // Thêm nhiều hình ảnh nếu cần
+        ];
+
+        const imageElements = [];
+        const numImages = 5; // Số lượng hình ảnh muốn hiển thị
+        const imageWidth = 15; // Width của hình ảnh tính bằng vw
+
+        // Tạo và thêm hình ảnh vào trang
+        for (let i = 0; i < numImages; i++) {
+            const img = document.createElement('img');
+            img.src = images[i % images.length]; // Lặp lại hình ảnh nếu không đủ
+            img.className = 'image';
+            img.style.left = `${i * imageWidth}vw`; // Đặt vị trí ban đầu
+            document.body.appendChild(img);
+            imageElements.push(img);
+        }
+
+        let position = 0;
+        const moveDistance = window.innerWidth; // Khoảng cách di chuyển
+
+        function moveImages() {
+            position += 0.5; // Tăng vị trí
+            if (position > moveDistance) {
+                position = -imageWidth; // Đặt lại vị trí khi ra ngoài màn hình
+            }
+            imageElements.forEach((img, index) => {
+                img.style.transform = `translateX(${position + index * imageWidth}px)`;
+            });
+        }
+
+        // Tăng tần suất xuất hiện bắn pháo hoa
+        setInterval(() => {
+            const ray = document.createElement('div');
+            ray.className = 'firework';
+            const size = Math.random() * 50 + 10; // Kích thước ngẫu nhiên
+            ray.style.width = `${size}px`;
+            ray.style.height = `${size}px`;
+            ray.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            ray.style.left = `${Math.random() * 100}vw`;
+            ray.style.top = `${Math.random() * 100}vh`;
+            ray.style.borderRadius = '50%';
+            ray.style.boxShadow = `0 0 ${size}px rgba(255, 255, 255, 0.5)`;
+            document.body.appendChild(ray);
+
+            setTimeout(() => {
+                ray.remove();
+            }, 1000);
+        }, 10); // Xuất hiện mỗi 200ms
+
+        // Di chuyển hình ảnh liên tục
+        setInterval(moveImages, 1); // Cập nhật vị trí mỗi 20ms
+    </script>
+</body>
+</html>
