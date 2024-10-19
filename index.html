@@ -11,7 +11,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: black;
+            background-color: pink;
             overflow: hidden;
             position: relative; /* Để sử dụng vị trí tuyệt đối cho hình ảnh */
         }
@@ -38,10 +38,11 @@
         }
 
         .image {
-            position: absolute;
-            width: 25vw; /* Chiếm 25% chiều rộng màn hình */
+            position:absolute;
+            width: 55vw; /* Chiếm 25% chiều rộng màn hình */
             height: auto; /* Tự động theo tỷ lệ */
             transition: transform 2s linear; /* Hiệu ứng chuyển động */
+            top: 20%;
         }
 
         .caption {
@@ -72,14 +73,14 @@
 
         const imageElements = [];
         const numImages = 5; // Số lượng hình ảnh muốn hiển thị
-        const imageWidth = 15; // Width của hình ảnh tính bằng vw
+        const imageWidth = 55; // Width của hình ảnh tính bằng vw
 
         // Tạo và thêm hình ảnh vào trang
         for (let i = 0; i < numImages; i++) {
             const img = document.createElement('img');
             img.src = images[i % images.length]; // Lặp lại hình ảnh nếu không đủ
             img.className = 'image';
-            img.style.left = `${i * imageWidth}vw`; // Đặt vị trí ban đầu
+            img.style.left = `-${i * imageWidth}vw`; // Đặt vị trí ban đầu
             document.body.appendChild(img);
             imageElements.push(img);
         }
@@ -89,11 +90,11 @@
 
         function moveImages() {
             position += 0.5; // Tăng vị trí
-            if (position > moveDistance) {
-                position = -imageWidth; // Đặt lại vị trí khi ra ngoài màn hình
+            if (position > 4*moveDistance) {
+                position = -6*imageWidth; // Đặt lại vị trí khi ra ngoài màn hình
             }
             imageElements.forEach((img, index) => {
-                img.style.transform = `translateX(${position + index * imageWidth}px)`;
+                img.style.transform = `translateX(${position - index * imageWidth}px)`;
             });
         }
 
@@ -114,10 +115,10 @@
             setTimeout(() => {
                 ray.remove();
             }, 1000);
-        }, 50); // Xuất hiện mỗi 200ms
+        }, 200); // Xuất hiện mỗi 200ms
 
         // Di chuyển hình ảnh liên tục
-        setInterval(moveImages, 10); // Cập nhật vị trí mỗi 20ms
+        setInterval(moveImages, 1); // Cập nhật vị trí mỗi 20ms
     </script>
 </body>
 </html>
