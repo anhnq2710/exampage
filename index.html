@@ -46,7 +46,7 @@
 
         .caption {
             color: white; /* Màu chữ */
-            font-size: 2em; /* Kích thước chữ */
+            font-size: 1em; /* Kích thước chữ */
             text-align: center; /* Căn giữa chữ */
             position: absolute;
             bottom: 10px; /* Khoảng cách từ đáy */
@@ -114,10 +114,10 @@
             setTimeout(() => {
                 ray.remove();
             }, 1000);
-        }, 10); // Xuất hiện mỗi 200ms
+        }, 50); // Xuất hiện mỗi 200ms
 
         // Di chuyển hình ảnh liên tục
-        setInterval(moveImages, 1); // Cập nhật vị trí mỗi 20ms
+        setInterval(moveImages, 10); // Cập nhật vị trí mỗi 20ms
     </script>
 </body>
 </html>
